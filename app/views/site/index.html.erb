@@ -1,0 +1,79 @@
+<% if current_user %>
+
+	<h1>My Profile</h1>
+	<ul>
+	  <li type = none ><%= current_user.email %></li>
+	  <li type = none ><%= current_user.address %></li>
+	</ul>
+
+<% else %>
+	<div class="row">
+		<div class="span9">
+			<table><!-- 
+				<caption>MacBook 15</caption> -->
+				<thead>
+					<tr>
+						<th></th>
+						<th>A</th>
+						<th>B</th>
+						<th>C</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><b>1</b></td>
+						<td><div class="taken_grid" style="background-color:red; height:100px; width:100px">aaa</div></td>
+						<td><img src="http://i00.i.aliimg.com/photo/v1/591670334/dog_coat_puffy_overall.summ.jpg"></td>
+						<td><div style="background-color:red; height:100px; width:100px"></div></td>
+					</tr>
+					<tr>
+						<td><b>2</b></td>
+						<td><div style="background-color:red; height:100px; width:100px"></div></td>
+						<td><div style="background-color:red; height:100px; width:100px"></div></td>
+						<td><div style="background-color:red; height:100px; width:100px"></div></td>
+					</tr>
+					<tr>
+						<td><b>3</b></td>
+						<td><div style="background-color:red; height:100px; width:100px"></div></td>
+						<td><div style="background-color:red; height:100px; width:100px"></div></td>
+						<td><div style="background-color:red; height:100px; width:100px"></div></td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+				Number of backers: 10<br>
+				£100 pledged of £1000 goal<br>
+				15 days 3 hrs 35 mins 10 secs<br>
+				Launch date: 14.05.2013<br>
+				Deadline: 14.06.2013<br>
+			</div>
+			<br>
+			<div>
+				<%= form_for @grid_space do |f| %>
+	      <% if @user.errors.any? %>
+	        <div class="errors">
+	          <ul>
+	          <% @user.errors.full_messages.each do |error| %>
+	            <li><%= error %></li>
+	          <% end %>
+	          </ul>
+	        </div>
+	      <% end %>
+	      <p>
+	        <%= f.label :grid_location_x %>
+	        <%= f.text_field :grid_location_x, :placeholder => 'grid_location_x' %>
+	      </p>
+	      <p>
+	        <%= f.label :grid_location_y %>
+	        <%= f.text_field :grid_location_y, :placeholder => 'grid_location_y' %>
+	      </p>
+	      <p><%= f.submit "Checkout" %></p>
+	    <% end %>					
+			</div>
+		</div>
+		<div class="span3">
+			<%= render 'shared/login' %>
+			<%= render 'users/signup' %>	
+		</div>
+	</div>
+<% end %>

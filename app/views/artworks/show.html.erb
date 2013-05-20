@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @artwork.title %>
+</p>
+<p>
+	<%= image_tag @artwork.file.url(:thumb) %>
+</p>
+
+
+<%= link_to 'Edit', edit_artwork_path(@artwork) %> |
+<%= link_to 'Back', artworks_path %>

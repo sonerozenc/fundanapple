@@ -1,0 +1,53 @@
+<div>
+  <h2>Sign up</h2>
+  <%= form_for(@user) do |f| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+        <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, :placeholder => 'First Name' %>
+    </div>
+    <div class="field">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, :placeholder => 'Last Name' %>
+    </div>
+    <div class="field">
+      <%= f.label :address %>
+      <%= f.text_field :address, :placeholder => 'Address' %>
+    </div>
+    <div class="field">
+      <%= f.label :phone %>
+      <%= f.text_field :phone, :placeholder => 'Phone' %>
+    </div>
+    <div class="field">
+      <%= f.label :email %>
+      <%= f.text_field :email, :placeholder => 'Email' %>
+    </div>
+    <div class="field">
+      <%= f.label :password %>
+      <%= f.text_field :password, :placeholder => 'Password' %>
+    </div>
+    <div class="field">
+      <%= f.label :password_confirmation %>
+      <%= f.text_field :password_confirmation, :placeholder => 'Confirm password' %>
+    </div>
+    <div class="field">
+      Are you a:
+      <br>
+      <%= f.select :is_project_starter, [['Project Starter', true], ['Contributor', false]] %>
+    </div>
+    <div class="actions">
+      <%= f.submit "Sign up" %>
+    </div>
+  <% end %>
+</div>

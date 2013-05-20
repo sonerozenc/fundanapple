@@ -1,0 +1,78 @@
+<p id="notice"><%= notice %></p>
+
+
+<div id="project-container" data-funding-end="<%= @project.end_time %>">
+
+  <table>
+    <thead>
+      <tr>
+        <% 1.upto(12) do |num| %>
+          <th><%= num - 1 if num > 1 %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% 1.upto(8) do |row_num| %>
+      <tr> 
+        <td>
+          <%= row_num %>
+        </td>
+        <% 1.upto(12) do |col_num| %>
+          <td>
+            <% artwork = find_artwork_by_grid_space(@project.id, row_num, col_num) %>
+            <% if artwork %>
+            <%= image_tag artwork.file.url, alt: 'Cool image' %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+
+  </table>
+
+  <div>
+    Number of backers: 10<br>
+    £100 pledged of £<%= @project.target_price %> goal<br>
+    <div id="countdown"></div>
+  </div>
+</div>
+<br>
+<p>
+  <b>Title:</b>
+  <%= @project.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @project.description %>
+</p>
+
+<p>
+  <b>Image url:</b>
+  <%= @project.image_url %>
+</p>
+
+<p>
+  <b>Video url:</b>
+  <%= @project.video_url %>
+</p>
+
+<p>
+  <b>Target price:</b>
+  <%= @project.target_price %>
+</p>
+
+<p>
+  <b>Start time:</b>
+  <%= @project.start_time %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%= @project.end_time %>
+</p>
+
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>
+

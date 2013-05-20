@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  artwork: 
+  project: 
+  x_location: 1
+  y_location: 1
+
+two:
+  artwork: 
+  project: 
+  x_location: 1
+  y_location: 1
