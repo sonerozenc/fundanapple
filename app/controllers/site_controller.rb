@@ -15,12 +15,13 @@ class SiteController < ApplicationController
 	
 	# POST /login -- logs the user in and redirects to :index
 	def login
-	  @user = User.find_by_email( params[:email] )
+	  @user = User.find_by_email(params[:email])
 	    
 	  if @user and @user.authenticate (params[:password] )
       session[:user_id] = @user.id
       redirect_to root_url, notice: "Thank you for logging in!"
     else
+      @user = User.new
       flash.now.alert = "Email or password is invalid!"
       render :index
 		end 
