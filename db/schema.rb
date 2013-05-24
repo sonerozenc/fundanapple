@@ -27,21 +27,6 @@ ActiveRecord::Schema.define(:version => 20130520153739) do
 
   add_index "artworks", ["user_id"], :name => "index_artworks_on_user_id"
 
-  create_table "grid_spaces", :force => true do |t|
-    t.string   "name"
-    t.integer  "starting_price"
-    t.integer  "grid_location_x"
-    t.integer  "grid_location_y"
-    t.boolean  "is_empty"
-    t.integer  "project_id"
-    t.integer  "artwork_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
-  add_index "grid_spaces", ["artwork_id"], :name => "index_grid_spaces_on_artwork_id"
-  add_index "grid_spaces", ["project_id"], :name => "index_grid_spaces_on_project_id"
-
   create_table "grids", :force => true do |t|
     t.integer  "artwork_id"
     t.integer  "project_id"

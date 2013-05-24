@@ -46,7 +46,6 @@ class ArtworksController < ApplicationController
   def create
     @artwork = Artwork.new(params[:artwork])
     @artwork.user = current_user
-    @artwork.grid_space = GridSpace.find(params[:artwork][:grid_space_id])
 
     respond_to do |format|
       if @artwork.save

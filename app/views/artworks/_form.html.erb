@@ -11,7 +11,15 @@
     </div>
   <% end %>
 
-  <%= form.text_field :title, :placeholder => 'Title' %>
-  <%= form.file_field :file %>
-  <%= form.submit %>
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, :placeholder => 'Title' %>
+  </div>
+  <div>
+    <%= form.file_field :file %>
+  </div><br>
+  <div class="actions">
+    <button class = "btn btn-primary">Add artwork</button>
+  </div>
 <% end %>
+

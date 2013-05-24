@@ -7,19 +7,21 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <%= stylesheet_link_tag "application", :media => "all" %>
+    
     <%= javascript_include_tag "application" %>
+
     <%= csrf_meta_tags %>
     <%= yield(:head) %>
   </head>
   <body>
-    <header class="navbar navbar-fixed-top">
+    <header class="navbar navbar-fixed-top navbar-inverse">
       <nav class="navbar-inner">
-        <div class="container">
+        <div class="container" style="margin-top:10px">
           <%= render 'layouts/navigation' %>
         </div>
       </nav>
     </header>
-    <div id="main" role="main">
+    <div id="main" role="main" style="margin-top:10px">
       <div class="container">
         <div class="content">
            <div class="row">

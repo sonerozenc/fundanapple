@@ -8,7 +8,6 @@ one:
   target_price: 1
   start_time: 2013-05-17 10:20:56
   end_time: 2013-05-17 10:20:56
-  gridspace: 
   user: 
 
 two:
@@ -19,5 +18,4 @@ two:
   target_price: 1
   start_time: 2013-05-17 10:20:56
   end_time: 2013-05-17 10:20:56
-  gridspace: 
   user: 

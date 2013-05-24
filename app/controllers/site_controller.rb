@@ -10,9 +10,7 @@ class SiteController < ApplicationController
 
   	@artworks = Artwork.all
   	@artwork = Artwork.new
-
-  	@grid_spaces = GridSpace.all
-  	@grid_space = GridSpace.new
+    
 	end
 	
 	# POST /login -- logs the user in and redirects to :index

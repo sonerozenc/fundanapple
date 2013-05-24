@@ -1,36 +1,32 @@
 $(document).ready(function() {
 
-	var end_date = $('#project-container').data('funding-end');
+  // Loop through each countdown class
+  $('.countdown').each(function() {
+ 
+    // Create new data from data attribute on element
+    var countdown = new Date($(this).data('time'));
 
-  var end = new Date(end_date);
+    // Create new countdown jQuery instance
+    $(this).countdown({until: countdown});
 
-  var _second = 1000;
-  var _minute = _second * 60;
-  var _hour = _minute * 60;
-  var _day = _hour * 24;
-  var timer;
+  });
 
-  function showRemaining() {
-    var now = new Date();
-    var distance = end - now;
-    if (distance < 0) {
+  $('table img').tooltip();
 
-      clearInterval(timer);
-      document.getElementById('countdown').innerHTML = 'EXPIRED!';
+  $('.image-grid').tooltip();
 
-      return;
-    }
-    var days = Math.floor(distance / _day);
-    var hours = Math.floor((distance % _day) / _hour);
-    var minutes = Math.floor((distance % _hour) / _minute);
-    var seconds = Math.floor((distance % _minute) / _second);
+  $('.image-grid').on("click", function(event){
 
-    document.getElementById('countdown').innerHTML = days + 'days ';
-    document.getElementById('countdown').innerHTML += hours + 'hrs ';
-    document.getElementById('countdown').innerHTML += minutes + 'mins ';
-    document.getElementById('countdown').innerHTML += seconds + 'secs';
-  }
+  	var current_row_num = $(this).data("row-num");
+  	var current_col_num = $(this).data("col-num");
 
-  timer = setInterval(showRemaining, 1000);
+  	var x_location_select = $('#grid_x_location');
+  	var y_location_select = $('#grid_y_location');
 
+  	x_location_select.children('option[value="' + current_col_num + '"]').prop({selected: true});
+  	y_location_select.children('option[value="' + current_row_num + '"]').prop({selected: true});
+
+  	$('.current_location').text('You selected column ' + current_col_num + ' and row ' + current_row_num);
+
+  });
 });

@@ -17,6 +17,14 @@
       <%= link_to "Log out", logout_path %>
     </li>
   <% end %>
-  
 </ul>
 
+<% unless current_user %>
+  <div class="navbar-form pull-right">
+    <%= form_tag login_path :html => { :class => "form-inline"} do %>
+      <%= text_field_tag :email, params[:email], :placeholder => 'Email' %>
+      <%= password_field_tag :password %>
+      <button class = "btn btn-primary">Log in</button>
+    <% end %>
+  </div>
+<% end %>

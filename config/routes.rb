@@ -3,8 +3,9 @@ Fundanapple111::Application.routes.draw do
   get "site/index"
 
   resources :artworks
-  resources :grid_spaces
-  resources :projects
+  resources :projects do
+    post '/add_grid' => 'projects#add_grid'
+  end
   resources :users
 
   post '/login'  => 'site#login'

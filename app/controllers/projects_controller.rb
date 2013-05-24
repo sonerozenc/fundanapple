@@ -2,8 +2,9 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
 
+    @grid = Grid.new
+    
     @projects = Project.all
     @project = Project.new
 
@@ -16,6 +17,9 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+
+    @grid = Grid.new
+
     @project = Project.includes(:grids).find(params[:id])
 
     @artworks = Artwork.all
@@ -56,6 +60,25 @@ class ProjectsController < ApplicationController
       else
         format.html { render action: "new" }
         format.json { render json: @project.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
+  # POST /projects/1/add_grid
+  def add_grid
+
+    @grid = Grid.new(params[:grid])
+    @project = Project.find(params[:project_id])
+    @grid.project = @project
+
+    respond_to do |format|
+      if @grid.save
+        format.html { redirect_to @project, notice: 'Grid was successfully created.' }
+        format.json { render json: @grid, status: :created, location: @project }
+      else
+        format.html { render action: "show" }
+        format.json { render json: @grid.errors, status: :unprocessable_entity }
       end
     end
   end

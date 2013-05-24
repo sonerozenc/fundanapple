@@ -1,6 +1,6 @@
-<h1>Listing artworks</h1>
+<h1>Artworks</h1>
 
-<table>
+<table class="table table-striped">
   <tr>
     <th>Title</th>
     <th>Image</th>
@@ -24,4 +24,4 @@
 
 <br />
 
-<%= link_to 'New Artwork', new_artwork_path %>
+<%= link_to 'New Artwork', new_artwork_path, html_options = { :class => "btn" } %>
