@@ -13,6 +13,8 @@ gem 'ruby-multipart-post'
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'httparty'
 
+gem 'aws-sdk'
+
 group :development do
 	gem 'better_errors'
 	gem 'binding_of_caller'
