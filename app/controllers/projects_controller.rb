@@ -23,7 +23,7 @@ class ProjectsController < ApplicationController
     @project = Project.includes(:grids).find(params[:id])
 
     @artworks = Artwork.all
-    @artwork = Artwork.find(params[:id])
+    # @artwork = Artwork.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
