@@ -11,7 +11,7 @@
     <br>
     <br>
     <div id="table-background">
-      <table>
+      <table id="grid-table" data-project-id="<%= @project.id %>">
         <thead>
           <tr>
             <% 13.times do |num| %>
@@ -22,20 +22,35 @@
         <tbody>
           <% 1.upto(8) do |row_num| %>
           <tr> 
-            <td>
+            <th>
               <b><%= row_num %></b>
-            </td>
+            </th>
             <% 1.upto(12) do |col_num| %>
-              <td>
-                <% artwork = find_artwork_by_grid_space(@project.id, col_num, row_num) %>
+
+              <% artwork = find_artwork_by_grid_space(@project.id, col_num, row_num) %>
+
+              <% if artwork %>
+                <td data-y="<%= row_num %>" data-x="<%= col_num %>">
+              <% else %>
+                <td class="table-cell-droppable" data-y="<%= row_num %>" data-x="<%= col_num %>">
+              <% end %>
+                
                 <% if artwork %>
-                  <%= image_tag artwork.file.url, :"data-toggle" => "tooltip", title: "#{artwork.user.first_name} contributed £10", alt: "#{artwork.user.first_name} contributed £10", class: "image_container" %>
+                  
+                  <% if artwork.user == current_user %>
+                    <%= image_tag artwork.file.url, :"data-toggle" => "tooltip", title: "Drag it around #{artwork.user.first_name}", alt: "Drag it around #{artwork.user.first_name}", id: find_grid_id_by_project_x_y(@project.id, col_num, row_num), class: "image_container_draggable" %>
+                  <% else %>
+                    <%= image_tag artwork.file.url, :"data-toggle" => "tooltip", title: "#{artwork.user.first_name} contributed £10", alt: "#{artwork.user.first_name} contributed £10", id: find_grid_id_by_project_x_y(@project.id, col_num, row_num), class: "image_container" %>
+                  <% end %>
+                
                 <% else %>
+                  
                   <% if (row_num == 4 && col_num == 6) || (row_num == 4 && col_num == 7) || (row_num == 5 && col_num == 6) || (row_num == 5 && col_num == 7) %>
                     <div class="image-grid no-laser" title="Not available" data-toggle="tooltip"></div>
                   <% else %>
                     <div class="image-grid" title="Available for £10" data-toggle="tooltip" data-row-num="<%= row_num %>" data-col-num="<%= col_num %>"></div>
                   <% end %>
+                
                 <% end %>
               </td>
             <% end %>

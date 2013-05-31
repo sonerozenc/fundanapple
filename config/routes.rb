@@ -5,6 +5,7 @@ Fundanapple111::Application.routes.draw do
   resources :artworks
   resources :projects do
     post '/add_grid' => 'projects#add_grid'
+    post '/update_grid/:id' => 'projects#update_grid', as: 'update_grid'
   end
   resources :users
 

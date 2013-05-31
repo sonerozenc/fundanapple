@@ -29,4 +29,45 @@ $(document).ready(function() {
   	$('.current_location').text('You selected column ' + current_col_num + ' and row ' + current_row_num);
 
   });
+
+  $('.image_container_draggable').draggable({
+    revert: 'invalid',
+    containment: $('#grid-table'),
+    cursor: 'move',
+    stack: '.image_container_draggable',
+  });
+
+
+  $('#grid-table .table-cell-droppable').droppable({
+    accept: '.image_container_draggable',
+    drop: function(event, ui) {
+      var draggable = ui.draggable;
+      var x_location = $(this).data('x');
+      var y_location = $(this).data('y');
+      var position = $(this).position();
+      draggable.css({
+        position: 'absolute',
+        top: position.top,
+        left: position.left
+      });
+
+      $.ajax({
+        url: '/projects/' + $('#grid-table').data('project-id') + '/update_grid/' + draggable.attr('id'),
+        type: 'POST',
+        data: {
+          x: x_location,
+          y: y_location
+        },
+        success: function(data) {
+          console.log('hmm');
+          console.log(data);
+        },
+        error: function(error) {
+          alert('You need to increase the bidding SIR!!!');
+        }
+      })
+    }
+  });
+
+
 });

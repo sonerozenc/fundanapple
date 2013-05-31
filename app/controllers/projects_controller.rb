@@ -83,6 +83,23 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def update_grid
+    @grid = Grid.find(params[:id])
+
+    @grid.x_location = params[:x]
+    @grid.y_location = params[:y]
+
+    if @grid.save
+      respond_to do |format|
+        format.json { render json: @grid }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: 'failed' }
+      end
+    end
+  end
+
   # PUT /projects/1
   # PUT /projects/1.json
   def update
