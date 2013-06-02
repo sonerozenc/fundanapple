@@ -48,7 +48,7 @@
                   <% if (row_num == 4 && col_num == 6) || (row_num == 4 && col_num == 7) || (row_num == 5 && col_num == 6) || (row_num == 5 && col_num == 7) %>
                     <div class="image-grid no-laser" title="Not available" data-toggle="tooltip"></div>
                   <% else %>
-                    <div class="image-grid" title="Available for £10" data-toggle="tooltip" data-row-num="<%= row_num %>" data-col-num="<%= col_num %>"></div>
+                    <div href="#myModal" role="button" data-toggle="modal" class="image-grid" title="Available for £10" data-toggle="tooltip" data-row-num="<%= row_num %>" data-col-num="<%= col_num %>"></div>
                   <% end %>
                 
                 <% end %>
@@ -66,42 +66,70 @@
 
   <div class="add-artwork-form">
     <% if current_user %>
-      <%= form_for @grid, url: project_add_grid_path(@project) do |form| %>
 
-        <% if @grid.errors.any? %>
-          <h3>Sorry, we couldn't create this contribution because:</h3>
-          <ul>
-          <% @grid.errors.messages.values.each do |msg| %>
-            <% msg.each do |m| %>
-              <li><%= m %></li>
+      <p class="text-center"><br>
+        <!-- Button to trigger modal -->
+        <a href="#myModal" role="button" class="btn btn-primary btn-large" data-toggle="modal">Add artwork</a>
+         
+        <!-- Modal -->
+        <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel" class="text-center">Add artwork</h3>
+          </div>
+          <div class="modal-body">
+
+            <%= form_for @grid, url: project_add_grid_path(@project), html: {class: 'form-horizontal'} do |form| %>
+
+              <% if @grid.errors.any? %>
+                <h3>Sorry, we couldn't create this contribution because:</h3>
+                <ul>
+                <% @grid.errors.messages.values.each do |msg| %>
+                  <% msg.each do |m| %>
+                    <li><%= m %></li>
+                  <% end %>
+                <% end %>
+                </ul>
+              <% end %>
+
+              <p class="current_location">Please select your location above.</p>
+              <div class="hidden">
+                <div class="x-grid">
+                  <%= form.label :x_location %>
+                  <%= form.select :x_location, 1..12.times {|c| [c, c]} %>
+                </div>
+                <div class="y-grid">
+                  <%= form.label :y_location %>
+                  <%= form.select :y_location, 1..8.times {|c| [c, c]} %>
+                </div>
+              </div>
+              <div id="file-uploader">
+                <%= form.fields_for @artwork do |af| %>
+                  <%= render :partial => "shared/upload", :locals => {:form => af } %>
+                <% end %>
+              </div>
+              <br>
+              OR CHOOSE FROM YOUR EXISTING ARTWORK
+              <br>
+              <br>
+              <div class="control-group" id="file-selector">
+                <%= render :partial => "shared/selector", :locals => {:form => form } %>
+              </div>
+              <div class="control-group">
+                <%= form.submit :class => "btn btn-primary"%>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+              </div>
             <% end %>
-          <% end %>
-          </ul>
-        <% end %>
 
-        <p class="current_location">Please select your location above.</p>
-        <div class="hidden">
-          <div class="x-grid">
-            <%= form.label :x_location %>
-            <%= form.select :x_location, 1..12.times {|c| [c, c]} %>
-          </div>
-          <div class="y-grid">
-            <%= form.label :y_location %>
-            <%= form.select :y_location, 1..8.times {|c| [c, c]} %>
           </div>
         </div>
-        <div>
-          <%= form.collection_select :artwork_id, current_user.artworks, :id, :title %>
-        </div>
-        <div >
-          <%= form.submit :class => "btn btn-primary"%>
-        </div>
-      <% end %>
+      </p>
+
+
     <% else %>
       <p>Please log in to contribute!</p>
     <% end %>
   </div>
 </div>
-
 
 

@@ -10,14 +10,8 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title, :placeholder => 'Title' %>
-  </div>
-  <div>
-    <%= form.file_field :file %>
-  </div><br>
+<%= render :partial => "shared/upload", :locals => {:form => form } %>
+ <br>
   <div class="actions">
     <button class = "btn btn-primary">Add artwork</button>
   </div>

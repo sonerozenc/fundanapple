@@ -40,80 +40,81 @@
 			    <h3 id="myModalLabel" class="text-center">Sign up</h3>
 			  </div>
 			  <div class="modal-body">
-			    <p>
-						  <%= form_for @user, html: {class: 'form-horizontal'} do |f| %>
-						    <% if @user.errors.any? %>
-						      <div id="error_explanation">
-						        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-						        <ul>
-						        <% @user.errors.full_messages.each do |msg| %>
-						          <li><%= msg %></li>
-						        <% end %>
-						        </ul>
-						      </div>
-						    <% end %>
+				  <%= form_for @user, html: {class: 'form-horizontal'} do |f| %>
 
-						    <div class="control-group">
-							    <label class="control-label"><%= f.label :first_name %></label>
-							    <div class="controls">
-							      <%= f.text_field :first_name, :placeholder => 'First Name' %>
-							    </div>
-							  </div>
+				    <% if @user.errors.any? %>
+				      <div id="error_explanation">
+				        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-						    <div class="control-group">
-							    <label class="control-label"><%= f.label :last_name %></label>
-							    <div class="controls">
-							      <%= f.text_field :last_name, :placeholder => 'Last Name' %>
-							    </div>
-							  </div>
+				        <ul>
+				        <% @user.errors.full_messages.each do |msg| %>
+				          <li><%= msg %></li>
+				        <% end %>
+				        </ul>
+				      </div>
+				    <% end %>
 
-						    <div class="control-group">
-							    <label class="control-label"><%= f.label :address %></label>
-							    <div class="controls">
-							      <%= f.text_field :address, :placeholder => 'Address' %>
-							    </div>
-							  </div>
+				    <div class="control-group">
+					    <label class="control-label"><%= f.label :first_name %></label>
+					    <div class="controls">
+					      <%= f.text_field :first_name, :placeholder => 'First Name' %>
+					    </div>
+					  </div>
 
-						    <div class="control-group">
-							    <label class="control-label"><%= f.label :phone %></label>
-							    <div class="controls">
-							      <%= f.text_field :phone, :placeholder => 'Phone' %>
-							    </div>
-							  </div>
+				    <div class="control-group">
+					    <label class="control-label"><%= f.label :last_name %></label>
+					    <div class="controls">
+					      <%= f.text_field :last_name, :placeholder => 'Last Name' %>
+					    </div>
+					  </div>
 
-						    <div class="control-group">
-							    <label class="control-label"><%= f.label :email %></label>
-							    <div class="controls">
-							      <%= f.text_field :email, :placeholder => 'Email' %>
-							    </div>
-							  </div>
+				    <div class="control-group">
+					    <label class="control-label"><%= f.label :address %></label>
+					    <div class="controls">
+					      <%= f.text_field :address, :placeholder => 'Address' %>
+					    </div>
+					  </div>
 
-						    <div class="control-group">
-							    <label class="control-label"><%= f.label :password %></label>
-							    <div class="controls">
-							      <%= f.text_field :password, :placeholder => 'Password' %>
-							    </div>
-							  </div>
+				    <div class="control-group">
+					    <label class="control-label"><%= f.label :phone %></label>
+					    <div class="controls">
+					      <%= f.text_field :phone, :placeholder => 'Phone' %>
+					    </div>
+					  </div>
 
-						    <div class="control-group">
-							    <label class="control-label"><%= f.label :password_confirmation %></label>
-							    <div class="controls">
-							      <%= f.text_field :password_confirmation, :placeholder => 'Confirm password' %>
-							    </div>
-							  </div>
+				    <div class="control-group">
+					    <label class="control-label"><%= f.label :email %></label>
+					    <div class="controls">
+					      <%= f.text_field :email, :placeholder => 'Email' %>
+					    </div>
+					  </div>
 
-							  <div class="control-group">
-							    <div class="controls">
-							    	<div class="actions">
-								      <button class = "btn btn-primary">Sign up</button>
-								      <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-								    </div>
-							    </div>
-							  </div>
-						  <% end %>
-						</form>
-			    </p>
+				    <div class="control-group">
+					    <label class="control-label"><%= f.label :password %></label>
+					    <div class="controls">
+					      <%= f.text_field :password, :placeholder => 'Password' %>
+					    </div>
+					  </div>
+
+				    <div class="control-group">
+					    <label class="control-label"><%= f.label :password_confirmation %></label>
+					    <div class="controls">
+					      <%= f.text_field :password_confirmation, :placeholder => 'Confirm password' %>
+					    </div>
+					  </div>
+
+					  <div class="control-group">
+					    <div class="controls">
+					    	<div class="actions">
+						      <button class = "btn btn-primary">Sign up</button>
+						      <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+						    </div>
+					    </div>
+					  </div>
+
+				  <% end %>
+						  
 			  </div>
 			</div>
 	  </p>
@@ -122,11 +123,9 @@
 
 	<div class="row">
 		<div class="span9">
-			
 		</div>
-
 		<div class="span3">
-
 		</div>
 	</div>
+
 <% end %>

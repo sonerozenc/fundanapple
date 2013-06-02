@@ -25,6 +25,8 @@ class ProjectsController < ApplicationController
     @artworks = Artwork.all
     # @artwork = Artwork.find(params[:id])
 
+    @artwork = Artwork.new
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @project }
@@ -64,13 +66,22 @@ class ProjectsController < ApplicationController
     end
   end
 
-
   # POST /projects/1/add_grid
   def add_grid
+    aparams = params[:grid].delete(:artwork)
+
+    if aparams[:file]
+      @artwork = Artwork.create(aparams)
+      params[:grid][:artwork_id] = @artwork.id
+
+      @artwork.user = current_user
+      @artwork.save
+    end
 
     @grid = Grid.new(params[:grid])
     @project = Project.find(params[:project_id])
     @grid.project = @project
+
 
     respond_to do |format|
       if @grid.save
