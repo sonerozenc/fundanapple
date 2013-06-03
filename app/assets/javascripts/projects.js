@@ -15,7 +15,13 @@ $(document).ready(function() {
 
   $('.image-grid').tooltip();
 
-  $('.image-grid').on("click", function(event){
+  $('#grid-table td').not('.disabled').on("click", function(event) {
+
+    // Artwork exists inside td
+    if ($(this).find('img').length) {
+      alert('Sorry, nope!');
+      return false;
+    }
 
   	var current_row_num = $(this).data("row-num");
   	var current_col_num = $(this).data("col-num");
@@ -38,12 +44,12 @@ $(document).ready(function() {
   });
 
 
-  $('#grid-table .table-cell-droppable').droppable({
+  $('#grid-table td').not('.disabled').droppable({
     accept: '.image_container_draggable',
     drop: function(event, ui) {
       var draggable = ui.draggable;
-      var x_location = $(this).data('x');
-      var y_location = $(this).data('y');
+      var x_location = $(this).closest('td').data('col-num');
+      var y_location = $(this).closest('td').data('row-num');
       var position = $(this).position();
       draggable.css({
         position: 'absolute',

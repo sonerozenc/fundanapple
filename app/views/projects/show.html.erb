@@ -29,30 +29,16 @@
 
               <% artwork = find_artwork_by_grid_space(@project.id, col_num, row_num) %>
 
-              <% if artwork %>
-                <td data-y="<%= row_num %>" data-x="<%= col_num %>">
-              <% else %>
-                <td class="table-cell-droppable" data-y="<%= row_num %>" data-x="<%= col_num %>">
-              <% end %>
-                
+              <td class="<%= inactive_grid?(col_num, row_num) %>" data-row-num="<%= row_num %>" data-col-num="<%= col_num %>" href="#myModal" data-toggle="modal">
                 <% if artwork %>
-                  
                   <% if artwork.user == current_user %>
                     <%= image_tag artwork.file.url, :"data-toggle" => "tooltip", title: "Drag it around #{artwork.user.first_name}", alt: "Drag it around #{artwork.user.first_name}", id: find_grid_id_by_project_x_y(@project.id, col_num, row_num), class: "image_container_draggable" %>
                   <% else %>
-                    <%= image_tag artwork.file.url, :"data-toggle" => "tooltip", title: "#{artwork.user.first_name} contributed £10", alt: "#{artwork.user.first_name} contributed £10", id: find_grid_id_by_project_x_y(@project.id, col_num, row_num), class: "image_container" %>
+                    <%= image_tag artwork.file.url, :"data-toggle" => "tooltip", title: "#{artwork.user.first_name} contributed £10", alt: "#{artwork.user.first_name} contributed £10" %>
                   <% end %>
-                
-                <% else %>
-                  
-                  <% if (row_num == 4 && col_num == 6) || (row_num == 4 && col_num == 7) || (row_num == 5 && col_num == 6) || (row_num == 5 && col_num == 7) %>
-                    <div class="image-grid no-laser" title="Not available" data-toggle="tooltip"></div>
-                  <% else %>
-                    <div href="#myModal" role="button" data-toggle="modal" class="image-grid" title="Available for £10" data-toggle="tooltip" data-row-num="<%= row_num %>" data-col-num="<%= col_num %>"></div>
-                  <% end %>
-                
                 <% end %>
               </td>
+
             <% end %>
           </tr>
           <% end %>
