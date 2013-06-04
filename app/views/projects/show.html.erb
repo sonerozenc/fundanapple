@@ -5,6 +5,10 @@
   <h4>Number of backers: <%= Grid.where("project_id = ?", @project).length %></h4>
   <h4>£<%= 10 * Grid.where("project_id = ?", @project).length %> pledged of £<%= @project.target_price %> goal</h4>
 
+  <div class="progress" style="width: 60%;">
+    <div class="bar" style="width: <%= (@project.grids.length.to_f / @project.target_price.to_f) * 1000 %>%;"></div>
+  </div>
+
   <div id="project-container" style="width:1005px;margin:auto">
 
     <div class="countdown" data-time="<%= @project.end_time %>" style="width:250px;margin:auto"></div>
@@ -29,15 +33,20 @@
 
               <% artwork = find_artwork_by_grid_space(@project.id, col_num, row_num) %>
 
-              <td class="<%= inactive_grid?(col_num, row_num) %>" data-row-num="<%= row_num %>" data-col-num="<%= col_num %>" href="#myModal" data-toggle="modal">
-                <% if artwork %>
-                  <% if artwork.user == current_user %>
-                    <%= image_tag artwork.file.url, :"data-toggle" => "tooltip", title: "Drag it around #{artwork.user.first_name}", alt: "Drag it around #{artwork.user.first_name}", id: find_grid_id_by_project_x_y(@project.id, col_num, row_num), class: "image_container_draggable" %>
-                  <% else %>
-                    <%= image_tag artwork.file.url, :"data-toggle" => "tooltip", title: "#{artwork.user.first_name} contributed £10", alt: "#{artwork.user.first_name} contributed £10" %>
+              <% if disabled_grid?(col_num, row_num) %>
+                <td class="<%= inactive_grid?(col_num, row_num) %>" data-row-num="<%= row_num %>" data-col-num="<%= col_num %>" data-toggle="tooltip" title="Available for £10">
+              <% else %>
+                <td class="<%= inactive_grid?(col_num, row_num) %>" data-row-num="<%= row_num %>" data-col-num="<%= col_num %>" href="#myModal" data-toggle="modal" data-toggle="tooltip" title="Available for £10">
+              <% end %>
+
+                  <% if artwork %>
+                    <% if artwork.user == current_user %>
+                      <%= image_tag artwork.file.url, :"data-toggle" => "tooltip", title: "Drag it around #{artwork.user.first_name}", alt: "Drag it around #{artwork.user.first_name}", id: find_grid_id_by_project_x_y(@project.id, col_num, row_num), class: "image_container_draggable" %>
+                    <% else %>
+                      <%= image_tag artwork.file.url, :"data-toggle" => "tooltip", title: "#{artwork.user.first_name} contributed £10", alt: "#{artwork.user.first_name} contributed £10", id: find_grid_id_by_project_x_y(@project.id, col_num, row_num), class: "image_container" %>
+                    <% end %>
                   <% end %>
-                <% end %>
-              </td>
+                </td>
 
             <% end %>
           </tr>
@@ -55,7 +64,7 @@
 
       <p class="text-center"><br>
         <!-- Button to trigger modal -->
-        <a href="#myModal" role="button" class="btn btn-primary btn-large" data-toggle="modal">Add artwork</a>
+        <!-- <a href="#myModal" role="button" class="btn btn-primary btn-large" data-toggle="modal">Add artwork</a> -->
          
         <!-- Modal -->
         <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -111,11 +120,21 @@
         </div>
       </p>
 
-
     <% else %>
       <p>Please log in to contribute!</p>
     <% end %>
   </div>
 </div>
 
+<h2>
+  Updates
+</h2>
 
+<div>
+  <% @project.grids.order("updated_at DESC").each do |grid| %>
+    <ul>
+      <li type="none"><b><%= grid.artwork.user.first_name %></b> contributed <b>£10</b> by adding <%= grid.artwork.title %> to location x:<%= grid.x_location %> y:<%= grid.y_location %> at <%= grid.updated_at %> </li>
+
+    </ul>
+  <% end %>
+</div>

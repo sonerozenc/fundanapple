@@ -13,7 +13,7 @@ $(document).ready(function() {
 
   $('table img').tooltip();
 
-  $('.image-grid').tooltip();
+  // $('#grid-table td').not('.disabled').tooltip();
 
   $('#grid-table td').not('.disabled').on("click", function(event) {
 
@@ -36,44 +36,59 @@ $(document).ready(function() {
 
   });
 
+  var dropFn = function(elem) {
+    elem.droppable({
+      accept: '.image_container_draggable',
+      drop: function(event, ui) {
+
+        var draggable = ui.draggable,
+            new_x_location = $(this).closest('td').data('col-num'),
+            new_y_location = $(this).closest('td').data('row-num'),
+            old_x_location = draggable.closest('td').data('col-num'),
+            old_y_location = draggable.closest('td').data('row-num'),
+            old_location = $('#grid-table td[data-col-num=' + old_x_location + '][data-row-num=' + old_y_location + ']'),
+            new_location = $('#grid-table td[data-col-num=' + new_x_location + '][data-row-num=' + new_y_location + ']');
+
+        $.ajax({
+          url: '/projects/' + $('#grid-table').data('project-id') + '/update_grid/' + draggable.attr('id'),
+          type: 'POST',
+          data: {
+            x: new_x_location,
+            y: new_y_location
+          }, success: function(data) {
+            console.log('success');
+            draggable.appendTo(new_location);
+            draggable.css({
+              position: 'absolute',
+              top: new_location.position().top,
+              left: new_location.position().left
+            });
+          }, error: function(error) {
+            console.log('failure');
+            draggable.css({
+              position: 'absolute',
+              top: old_location.position().top,
+              left: old_location.position().left
+            });
+            alert('You need to increase the bidding SIR!!!');
+          }
+        });
+      }
+    });
+  };
+
   $('.image_container_draggable').draggable({
     revert: 'invalid',
     containment: $('#grid-table'),
     cursor: 'move',
     stack: '.image_container_draggable',
-  });
-
-
-  $('#grid-table td').not('.disabled').droppable({
-    accept: '.image_container_draggable',
-    drop: function(event, ui) {
-      var draggable = ui.draggable;
-      var x_location = $(this).closest('td').data('col-num');
-      var y_location = $(this).closest('td').data('row-num');
-      var position = $(this).position();
-      draggable.css({
-        position: 'absolute',
-        top: position.top,
-        left: position.left
-      });
-
-      $.ajax({
-        url: '/projects/' + $('#grid-table').data('project-id') + '/update_grid/' + draggable.attr('id'),
-        type: 'POST',
-        data: {
-          x: x_location,
-          y: y_location
-        },
-        success: function(data) {
-          console.log('hmm');
-          console.log(data);
-        },
-        error: function(error) {
-          alert('You need to increase the bidding SIR!!!');
-        }
-      })
+    stop: function(event, ui) {
+      dropFn($(this).closest('td'));
     }
   });
 
 
-});
+  dropFn($('#grid-table td:not(.disabled)'));
+
+
+  });

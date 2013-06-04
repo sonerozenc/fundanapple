@@ -19,6 +19,7 @@ class ProjectsController < ApplicationController
   def show
 
     @grid = Grid.new
+    @grids = Grid.all
 
     @project = Project.includes(:grids).find(params[:id])
 
