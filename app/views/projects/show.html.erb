@@ -1,19 +1,32 @@
 <div class="text-center">
-  <h3><%= @project.title %> <%= link_to 'Edit', edit_project_path(@project) %> |
-  <%= link_to 'Back', projects_path %></h3>
-  <p><%= @project.description %></p>
-  <h4>Number of backers: <%= Grid.where("project_id = ?", @project).length %></h4>
-  <h4>£<%= 10 * Grid.where("project_id = ?", @project).length %> pledged of £<%= @project.target_price %> goal</h4>
+  <div class="row">
+    <div class="span5">
+      <%= image_tag @project.image_url %>  
+    </div>
+    <div class="span7" style="background-color:white">
+      <div style="background-color:lightblue;margin: 10px 10px">
+        <h3><%= @project.title %> <%= link_to 'Edit', edit_project_path(@project) %> |
+        <%= link_to 'Back', projects_path %></h3>
+        <h5>by <%= @project.user.first_name %> <%= @project.user.last_name %></h5>
+      </div>
+      <br>
+      <p style="width:70%;margin:auto"><%= @project.description %></p>
+      <h4><%= Grid.where("project_id = ?", @project).length %> backers</h4>
+      <h4>£<%= 10 * Grid.where("project_id = ?", @project).length %> of £<%= @project.target_price %> collected</h4>
 
-  <div class="progress" style="width: 60%;">
-    <div class="bar" style="width: <%= (@project.grids.length.to_f / @project.target_price.to_f) * 1000 %>%;"></div>
+      <div class="progress" style="width: 60%;">
+        <div class="bar" style="width: <%= (@project.grids.length.to_f / @project.target_price.to_f) * 1000 %>%;"></div>
+      </div>
+
+      <div class="countdown" data-time="<%= @project.end_time %>" style="width:250px;margin:auto"></div>
+    </div>
+    
   </div>
+  <br>
+  <br>
 
   <div id="project-container" style="width:1005px;margin:auto">
 
-    <div class="countdown" data-time="<%= @project.end_time %>" style="width:250px;margin:auto"></div>
-    <br>
-    <br>
     <div id="table-background">
       <table id="grid-table" data-project-id="<%= @project.id %>">
         <thead>
@@ -34,7 +47,7 @@
               <% artwork = find_artwork_by_grid_space(@project.id, col_num, row_num) %>
 
               <% if disabled_grid?(col_num, row_num) %>
-                <td class="<%= inactive_grid?(col_num, row_num) %>" data-row-num="<%= row_num %>" data-col-num="<%= col_num %>" data-toggle="tooltip" title="Available for £10">
+                <td class="<%= inactive_grid?(col_num, row_num) %>" data-row-num="<%= row_num %>" data-col-num="<%= col_num %>" data-toggle="tooltip" title="Not Available">
               <% else %>
                 <td class="<%= inactive_grid?(col_num, row_num) %>" data-row-num="<%= row_num %>" data-col-num="<%= col_num %>" href="#myModal" data-toggle="modal" data-toggle="tooltip" title="Available for £10">
               <% end %>
@@ -121,20 +134,33 @@
       </p>
 
     <% else %>
-      <p>Please log in to contribute!</p>
+      <p>Please log in to contribute!</p> 
     <% end %>
   </div>
 </div>
 
-<h2>
+<h3 style="background-color:lightblue">
   Updates
-</h2>
+</h3>
 
 <div>
   <% @project.grids.order("updated_at DESC").each do |grid| %>
-    <ul>
-      <li type="none"><b><%= grid.artwork.user.first_name %></b> contributed <b>£10</b> by adding <%= grid.artwork.title %> to location x:<%= grid.x_location %> y:<%= grid.y_location %> at <%= grid.updated_at %> </li>
-
-    </ul>
+        <div class="row">
+          <div class="span2">
+            <div class="text-center">
+              <% artwork = grid.artwork %>
+              <% if artwork %>
+                <%= image_tag artwork.file.url, style: "width:80px;height:80px" %>
+              <% end %>
+            </div>
+          </div>
+          <div class="span10" style="background-color:white;margin-left:20px">
+            <h4 style="margin-left:20px"><%= grid.artwork.title %></h4>
+            <b style="margin-left:20px"><%= grid.artwork.user.first_name %></b> contributed <b>£10</b> by adding <%= grid.artwork.title %> to location x:<%= grid.x_location %> y:<%= grid.y_location %>
+            <br>
+            <p style="color:grey;margin-left:20px">updated <%= time_ago_in_words(grid.updated_at) %> ago</p>
+          </div>
+        </div>
+        <br>
   <% end %>
 </div>

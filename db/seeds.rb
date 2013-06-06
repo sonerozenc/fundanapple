@@ -15,8 +15,8 @@ users = User.create([
 ])
 
 projects = Project.create([
-  { :title => 'Rob 35th birthday present', :description => 'We are getting a Macbook for his birthday', :image_url => 'image.com', :video_url => 'video.com', :target_price => '1000', :start_time => '2013-05-19 11:34:00 UTC', :end_time => '2013-06-19 11:34:00 UTC', :user => users[0] },
-  { :title => 'James graduation present', :description => 'We are getting a Macbook for this very special day', :image_url => 'image.com', :video_url => 'video.com', :target_price => '2000', :start_time => '2013-06-19 11:34:00 UTC', :end_time => '2013-07-19 11:34:00 UTC', :user => users[1] },
+  { :title => 'Rob 35th birthday present', :description => 'Rob is turning 35 this year. Confirmed by various resources, we have been told that Rob desperately needs a new MacBook. Here is our chance to contribute to this wonderful gift.', :image_url => 'http://lorempixel.com/600/400/', :video_url => 'video.com', :target_price => '1000', :start_time => '2013-05-19 11:34:00 UTC', :end_time => '2013-06-19 11:34:00 UTC', :user => users[0] },
+  { :title => 'James graduation present', :description => 'We are getting a Macbook for this very special day.', :image_url => 'http://lorempixel.com/600/400/', :video_url => 'video.com', :target_price => '2000', :start_time => '2013-06-19 11:34:00 UTC', :end_time => '2013-07-19 11:34:00 UTC', :user => users[1] },
 ])
 
 artworks = Artwork.create([
