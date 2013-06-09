@@ -11,35 +11,57 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+  <div class="control-group">
+    <label class="control-label"><%= f.label :title %></label>
+    <div class="controls">
+      <%= f.text_field :title, :placeholder => 'Title' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+  <div class="control-group">
+    <label class="control-label"><%= f.label :description %></label>
+    <div class="controls">
+      <%= f.text_area :description, :placeholder => 'Description', rows: "8", cols: "100" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :image_url %><br />
-    <%= f.text_field :image_url %>
+  
+  <!-- Used the trick at: http://gregpike.net/demos/bootstrap-file-input/demo.html -->
+  <div class="control-group">
+    <label class="control-label">Choose your artwork</label>
+    <div class="controls">
+      <%= f.file_field :file, title: 'Browse' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :video_url %><br />
-    <%= f.text_field :video_url %>
+  <!-- end of trick -->
+
+<!--   <div class="control-group">
+    <label class="control-label"><%= f.label :video_url %></label>
+    <div class="controls">
+      <%= f.text_field :video_url, :placeholder => 'Video URL' %>
+    </div>
+  </div> -->
+  <div class="control-group">
+    <label class="control-label"><%= f.label :target_price %></label>
+    <div class="controls">
+      <%= f.number_field :target_price, :placeholder => 'Target price' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :target_price %><br />
-    <%= f.number_field :target_price %>
+  <div class="control-group">
+    <label class="control-label"><%= f.label :start_time %></label>
+    <div class="controls">
+      <%= f.datetime_select :start_time %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :start_time %><br />
-    <%= f.datetime_select :start_time %>
+  <div class="control-group">
+    <label class="control-label"><%= f.label :end_time %></label>
+    <div class="controls">
+      <%= f.datetime_select :end_time %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :end_time %><br />
-    <%= f.datetime_select :end_time %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="control-group">
+    <div class="controls">
+      <div class="actions">
+        <button class = "btn btn-primary">Add project</button>
+      </div>
+    </div>
   </div>
 <% end %>

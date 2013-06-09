@@ -2,6 +2,7 @@
 
 	<h1>My Profile</h1>
 	<ul>
+	  <li type = none ><%= current_user.first_name %> <%= current_user.last_name %></li>
 	  <li type = none ><%= current_user.email %></li>
 	  <li type = none ><%= current_user.address %></li>
 	</ul>
@@ -28,7 +29,7 @@
 
 	<div class="hero-unit" style="margin-top:-100px">
 	  <h1 class="text-center">Apples for free!</h1><br>
-	  <p class="text-center" style="font-size: 12pt; font-family: Helvetica, Arial, sans-serif">Hey you, we can hear you saying 'I need an apple too'. FundAnApple is a platform where you can purchase Apple products for (almost) free with the support of your friends, family, etc.</p>
+	  <p class="text-center" style="width: 70%; margin: auto; font-size: 12pt; font-family: Helvetica, Arial, sans-serif">Hey you, we can hear you saying 'I need an apple too'. FundAnApple is a platform where you can purchase Apple products for (almost) free with the support of your friends, family, etc.</p>
 	  <p class="text-center"><br>
 	    <!-- Button to trigger modal -->
 			<a href="#myModal" role="button" class="btn btn-primary btn-large" data-toggle="modal">Sign up</a>

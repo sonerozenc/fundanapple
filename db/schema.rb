@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130520153739) do
+ActiveRecord::Schema.define(:version => 20130606135557) do
 
   create_table "artworks", :force => true do |t|
     t.string   "title"
@@ -49,8 +49,12 @@ ActiveRecord::Schema.define(:version => 20130520153739) do
     t.datetime "end_time"
     t.integer  "grid_space_id"
     t.integer  "user_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
   end
 
   add_index "projects", ["grid_space_id"], :name => "index_projects_on_grid_space_id"

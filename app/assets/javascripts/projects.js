@@ -1,5 +1,15 @@
 $(document).ready(function() {
 
+  var $container = $('#container');
+  $container.imagesLoaded(function(){
+    $container.masonry({
+      itemSelector : '.item',
+      columnWidth : 290
+    });
+  });
+
+  $('input[type=file]').bootstrapFileInput();
+
   // Loop through each countdown class
   $('.countdown').each(function() {
  
@@ -93,4 +103,14 @@ $(document).ready(function() {
   dropFn($('#grid-table td:not(.disabled)'));
 
 
-  });
+  // $realInputField = $('#file');
+
+  // $realInputField.change({
+  //   $('#file-display').val $(@).val().replace(/^.*[\\\/]/, '');
+  // });
+
+  // $('#upload-btn').click({
+  //   $realInputField.click();
+  // });
+
+});

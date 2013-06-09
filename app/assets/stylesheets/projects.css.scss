@@ -4,7 +4,7 @@
 
 #table-background{
 	background-image:url('/MacBook1.jpg');
-	background-size:1005px 688px;
+	background-size:1020px 698px;
 	background-repeat:no-repeat;
 }
 
@@ -46,4 +46,14 @@ td.disabled {
 
 .progress {
 	margin: 20px auto;
+}
+
+.item {
+  width: 270px;
+  margin: 10px;
+  float: left;
+}
+
+select {
+	max-width: 100px;
 }

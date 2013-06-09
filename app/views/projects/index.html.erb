@@ -4,11 +4,11 @@
 <br>
 <br>
 
-<ul class="thumbnails">
+<!-- <ul class="thumbnails">
   <% @projects.each do |project| %>
     <li class="span3">
       <div class="thumbnail" style="background-color:white">
-        <%= link_to image_tag('http://lorempixel.com/400/300/'), project %>
+        <%= link_to image_tag(project.file.url(:medium)), project %>
         <br>
         <h4 class="text-center" style="width:95%;margin:auto"><%= project.title %></h4>
         <h5 class="text-center" style="width:95%;margin:auto;color:grey">by <%= project.user.first_name %> <%= project.user.last_name %></h5>
@@ -25,4 +25,27 @@
       </div>
     </li>
   <% end %>
-</ul>
+</ul> -->
+
+<div id="container">
+  <% @projects.each do |project| %>
+    <div class="item">
+      <div class="thumbnail" style="background-color:white">
+        <%= link_to image_tag(project.file.url(:medium)), project %>
+        <br>
+        <h4 class="text-center" style="width:95%;margin:auto"><%= project.title %></h4>
+        <h5 class="text-center" style="width:95%;margin:auto;color:grey">by <%= project.user.first_name %> <%= project.user.last_name %></h5>
+        <p class="text-center" style="width:95%;margin:auto"><%= project.description %></p>
+        <br>
+        <div class="countdown" data-time="<%= project.end_time %>" style="width:250px;margin:auto"></div>
+        <br>
+        <div class="progress" style="width:95%;margin:auto">
+          <div class="bar" style="width: <%= (project.grids.length.to_f / project.target_price.to_f) * 1000 %>%;"></div>
+        </div>
+
+        <h5 class="text-center">£<%= 10 * Grid.where("project_id = ?", project).length %> of £<%= project.target_price %> collected</h5>
+
+      </div>
+    </div>
+  <% end %>
+</div>

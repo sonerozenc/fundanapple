@@ -6,11 +6,15 @@ Fundanapple111::Application.routes.draw do
   resources :projects do
     post '/add_grid' => 'projects#add_grid'
     post '/update_grid/:id' => 'projects#update_grid', as: 'update_grid'
+
+   
   end
   resources :users
 
   post '/login'  => 'site#login'
   get '/logout' => 'site#logout'
+
+  resources :charges
 
 
   # The priority is based upon order of creation:
