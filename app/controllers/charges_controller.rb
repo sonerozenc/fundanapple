@@ -10,6 +10,10 @@ class ChargesController < ApplicationController
 	  @user = current_user
 	  @amount = @user.artworks.length * 10 * 100
 
+	  @project = Project.find(params[:project_id])
+
+	  @amount = @project.grids.length * 10 * 100
+	  
 	  customer = Stripe::Customer.create(
 	    :email => @user.email,
 	    :card  => params[:stripeToken]
@@ -22,11 +26,24 @@ class ChargesController < ApplicationController
 	    :currency    => 'usd'
 	  )
 
-	  # add charge to charge model
+	  Grid.where('project_id = ?', @project.id).each do |grid|
+	  	grid.Paidfor = true
+	  	grid.save
+	  end
 
-	rescue Stripe::CardError => e
-	  flash[:error] = e.message
-	  redirect_to charges_path
+	  # add charge to grid model
+	 #  @project.grids.each do |grid|
+	 #  	if grid.user == @user
+	 #  		grid.paidfor = true
+	 #  		grid.save
+	 #  	end
+		# end
+
+		rescue Stripe::CardError => e
+		  flash[:error] = e.message
+		  redirect_to charges_path
+		end
+
 	end
 
 end

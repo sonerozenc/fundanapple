@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130606135557) do
+ActiveRecord::Schema.define(:version => 20130609140207) do
 
   create_table "artworks", :force => true do |t|
     t.string   "title"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20130606135557) do
     t.integer  "y_location"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.boolean  "Paidfor"
   end
 
   add_index "grids", ["artwork_id"], :name => "index_grids_on_artwork_id"
