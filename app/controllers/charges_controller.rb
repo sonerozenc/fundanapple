@@ -26,18 +26,11 @@ class ChargesController < ApplicationController
 	    :currency    => 'usd'
 	  )
 
+	  # add charge to grid model
 	  Grid.where('project_id = ?', @project.id).each do |grid|
 	  	grid.Paidfor = true
 	  	grid.save
 	  end
-
-	  # add charge to grid model
-	 #  @project.grids.each do |grid|
-	 #  	if grid.user == @user
-	 #  		grid.paidfor = true
-	 #  		grid.save
-	 #  	end
-		# end
 
 		rescue Stripe::CardError => e
 		  flash[:error] = e.message

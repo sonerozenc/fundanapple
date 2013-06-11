@@ -23,10 +23,6 @@ $(document).ready(function() {
 
   $('table img').tooltip();
 
-  // $('.disabled').tooltip();
-
-  // $('#grid-table td').not('.disabled').tooltip();
-
   $('#grid-table td').not('.disabled').on("click", function(event) {
 
     // Artwork exists inside td
@@ -101,16 +97,5 @@ $(document).ready(function() {
 
 
   dropFn($('#grid-table td:not(.disabled)'));
-
-
-  // $realInputField = $('#file');
-
-  // $realInputField.change({
-  //   $('#file-display').val $(@).val().replace(/^.*[\\\/]/, '');
-  // });
-
-  // $('#upload-btn').click({
-  //   $realInputField.click();
-  // });
 
 });

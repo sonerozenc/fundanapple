@@ -1,9 +1,13 @@
 <div class="text-center">
   <div class="row">
-    <div class="span5">
-      <%= image_tag @project.file.url(:medium) %>  
+    <div class="span6">
+
+      <iframe width="560" height="315" src="http://www.youtube.com/embed/-FHYQceNVy4?rel=0" frameborder="0" allowfullscreen></iframe>
+
+      <!-- <%= image_tag @project.file.url(:medium) %>   -->
+      
     </div>
-    <div class="span7" style="background-color:white">
+    <div class="span6" style="background-color:white">
       <div style="background-color: lightblue; margin: 10px 10px">
         <h3><%= @project.title %> <%= link_to 'Edit', edit_project_path(@project) %> |
         <%= link_to 'Back', projects_path %></h3>
@@ -147,44 +151,66 @@
   </div>
 </div>
 
-<!-- Stripe integration -->
-<%= form_tag charges_path, class: "text-center" do %>
-  <%= hidden_field_tag "project_id", @project.id %>
-  <article>
-    <label class="amount">
-      <span>Amount: $<%= current_user.artworks.length * 10 %>.00</span>
-    </label>
-  </article>
+<!-- Payment area -->
+<div class='text-center'>
+  <% project_paid_for = true %>
+  <% @project.grids.each do |grid| %>
+    <% unless grid.Paidfor %>
+      <% project_paid_for = false %>
+    <% end %>
+  <% end %>
 
-  <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
-          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-          data-description="Checkout",
-          data-amount="<%= current_user.artworks.length * 10 * 100 %>"></script>
-<% end %>
-<!-- End of Stripe integration -->
+  <% if project_paid_for %>
+    <b>Thanks for your payment</b>
+    <br>
+    <br>
+  <% else %>
+    <!-- Stripe integration -->
+    <%= form_tag charges_path do %>
+      <%= hidden_field_tag "project_id", @project.id %>
+      <article>
+        <label class="amount">
+          <span>Amount: $<%= current_user.artworks.length * 10 %>.00</span>
+        </label>
+      </article>
+
+      <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+              data-description="Checkout",
+              data-amount="<%= current_user.artworks.length * 10 * 100 %>">
+      </script>
+    <% end %>
+    <!-- End of Stripe integration -->
+  <% end %>
+</div>
+<!-- End of Payment area -->
+
 
 <h3 style="background-color:lightblue">
   Updates
 </h3>
 
 <div>
+
   <% @project.grids.order("updated_at DESC").each do |grid| %>
-        <div class="row">
-          <div class="span2">
-            <div class="text-center">
-              <% artwork = grid.artwork %>
-              <% if artwork %>
-                <%= image_tag artwork.file.url, style: "width:80px;height:80px" %>
-              <% end %>
-            </div>
-          </div>
-          <div class="span10" style="background-color:white;margin-left:20px">
-            <h4 style="margin-left:20px"><%= grid.artwork.title %></h4>
-            <b style="margin-left:20px"><%= grid.artwork.user.first_name %></b> contributed <b>£10</b> by adding <%= grid.artwork.title %> to location x:<%= grid.x_location %> y:<%= grid.y_location %>
-            <br>
-            <p style="color:grey;margin-left:20px">updated <%= time_ago_in_words(grid.updated_at) %> ago</p>
-          </div>
+
+    <div class="row">
+      <div class="span2">
+        <div class="text-center">
+          <% artwork = grid.artwork %>
+          <% if artwork %>
+            <%= image_tag artwork.file.url, style: "width:80px;height:80px" %>
+          <% end %>
         </div>
+      </div>
+      <div class="span10" style="background-color:white;margin-left:20px">
+        <h4 style="margin-left:20px"><%= grid.artwork.title %></h4>
+        <b style="margin-left:20px"><%= grid.artwork.user.first_name %></b> contributed <b>£10</b> by adding <%= grid.artwork.title %> to location x:<%= grid.x_location %> y:<%= grid.y_location %>
         <br>
+        <p style="color:grey;margin-left:20px">updated <%= time_ago_in_words(grid.updated_at) %> ago</p>
+      </div>
+    </div>
+    <br>
+
   <% end %>
 </div>

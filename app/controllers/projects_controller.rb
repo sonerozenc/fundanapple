@@ -82,7 +82,8 @@ class ProjectsController < ApplicationController
     @grid = Grid.new(params[:grid])
     @project = Project.find(params[:project_id])
     @grid.project = @project
-    @grid.user = current_user
+
+    @grid.Paidfor = false
 
 
     respond_to do |format|
