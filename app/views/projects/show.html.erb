@@ -1,8 +1,10 @@
 <div class="text-center">
   <div class="row">
     <div class="span6">
-
-      <iframe width="560" height="315" src="http://www.youtube.com/embed/-FHYQceNVy4?rel=0" frameborder="0" allowfullscreen></iframe>
+      <!-- Youtube video -->
+      <!-- This hard-code will be replaced with @project.video_url when I shoot videos for each project -->
+      <iframe width="480" height="360" src="http://www.youtube.com/embed/zRlI1mEp_pw?rel=0" frameborder="0" allowfullscreen></iframe>
+      <!-- End of Youtube video -->
 
       <!-- <%= image_tag @project.file.url(:medium) %>   -->
 
@@ -185,15 +187,12 @@
 </div>
 <!-- End of Payment area -->
 
-
 <h3 style="background-color:lightblue">
   Updates
 </h3>
 
 <div>
-
   <% @project.grids.order("updated_at DESC").each do |grid| %>
-
     <div class="row">
       <div class="span2">
         <div class="text-center">
@@ -211,6 +210,5 @@
       </div>
     </div>
     <br>
-
   <% end %>
 </div>

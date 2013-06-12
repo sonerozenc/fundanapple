@@ -1,6 +1,7 @@
 Fundanapple111::Application.routes.draw do
   
   get "site/index"
+  get "site/profile"
 
   resources :artworks
   resources :projects do

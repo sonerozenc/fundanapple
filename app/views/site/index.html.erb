@@ -1,132 +1,112 @@
-<% if current_user %>
+<!-- Carousel -->
+<div id="myCarousel" class="carousel slide">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <div class="active item"><%= image_tag 'slideshow/macbook_2.jpg' %></div>
+    <div class="item"><%= image_tag 'slideshow/macbook_3.jpg' %></div>
+    <div class="item"><%= image_tag 'slideshow/ipad_1.jpg' %></div>
+  </div>
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
+<!-- End of Carousel -->
 
-	<h1>My Profile</h1>
-	<ul>
-	  <li type = none ><%= current_user.first_name %> <%= current_user.last_name %></li>
-	  <li type = none ><%= current_user.email %></li>
-	  <li type = none ><%= current_user.address %></li>
-	</ul>
+<div class="hero-unit">
+  <h1 class="text-center">Apples for free!</h1><br>
+  <p class="text-center" style="width: 70%; margin: auto; font-size: 12pt; font-family: Helvetica, Arial, sans-serif">Hey you, we can hear you saying 'I need an apple too'. FundAnApple is a platform where you can purchase Apple products for (almost) free with the support of your friends, family, etc.</p>
+  <p class="text-center"><br>
+    <!-- Button to trigger modal -->
+		<a href="#myModal" role="button" class="btn btn-primary btn-large" data-toggle="modal">Sign up</a>
+		 
+		<!-- Modal -->
+		<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    <h3 id="myModalLabel" class="text-center">Sign up</h3>
+		  </div>
+		  <div class="modal-body">
 
-<% else %>
-	<!-- Carousel -->
-	<div id="myCarousel" class="carousel slide">
-	  <ol class="carousel-indicators">
-	    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-	    <li data-target="#myCarousel" data-slide-to="1"></li>
-	    <li data-target="#myCarousel" data-slide-to="2"></li>
-	  </ol>
-	  <!-- Carousel items -->
-	  <div class="carousel-inner">
-	    <div class="active item"><%= image_tag 'slideshow/macbook_2.jpg' %></div>
-	    <div class="item"><%= image_tag 'slideshow/macbook_3.jpg' %></div>
-	    <div class="item"><%= image_tag 'slideshow/ipad_1.jpg' %></div>
-	  </div>
-	  <!-- Carousel nav -->
-	  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-	  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-	</div>
-	<!-- End of Carousel -->
+			  <%= form_for @user, html: {class: 'form-horizontal'} do |f| %>
 
-	<div class="hero-unit">
-	  <h1 class="text-center">Apples for free!</h1><br>
-	  <p class="text-center" style="width: 70%; margin: auto; font-size: 12pt; font-family: Helvetica, Arial, sans-serif">Hey you, we can hear you saying 'I need an apple too'. FundAnApple is a platform where you can purchase Apple products for (almost) free with the support of your friends, family, etc.</p>
-	  <p class="text-center"><br>
-	    <!-- Button to trigger modal -->
-			<a href="#myModal" role="button" class="btn btn-primary btn-large" data-toggle="modal">Sign up</a>
-			 
-			<!-- Modal -->
-			<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  <div class="modal-header">
-			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			    <h3 id="myModalLabel" class="text-center">Sign up</h3>
-			  </div>
-			  <div class="modal-body">
+			    <% if @user.errors.any? %>
+			      <div id="error_explanation">
+			        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-				  <%= form_for @user, html: {class: 'form-horizontal'} do |f| %>
+			        <ul>
+			        <% @user.errors.full_messages.each do |msg| %>
+			          <li><%= msg %></li>
+			        <% end %>
+			        </ul>
+			      </div>
+			    <% end %>
 
-				    <% if @user.errors.any? %>
-				      <div id="error_explanation">
-				        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+			    <div class="control-group">
+				    <label class="control-label"><%= f.label :first_name %></label>
+				    <div class="controls">
+				      <%= f.text_field :first_name, :placeholder => 'First Name' %>
+				    </div>
+				  </div>
 
-				        <ul>
-				        <% @user.errors.full_messages.each do |msg| %>
-				          <li><%= msg %></li>
-				        <% end %>
-				        </ul>
-				      </div>
-				    <% end %>
+			    <div class="control-group">
+				    <label class="control-label"><%= f.label :last_name %></label>
+				    <div class="controls">
+				      <%= f.text_field :last_name, :placeholder => 'Last Name' %>
+				    </div>
+				  </div>
 
-				    <div class="control-group">
-					    <label class="control-label"><%= f.label :first_name %></label>
-					    <div class="controls">
-					      <%= f.text_field :first_name, :placeholder => 'First Name' %>
+			    <div class="control-group">
+				    <label class="control-label"><%= f.label :address %></label>
+				    <div class="controls">
+				      <%= f.text_field :address, :placeholder => 'Address' %>
+				    </div>
+				  </div>
+
+			    <div class="control-group">
+				    <label class="control-label"><%= f.label :phone %></label>
+				    <div class="controls">
+				      <%= f.text_field :phone, :placeholder => 'Phone' %>
+				    </div>
+				  </div>
+
+			    <div class="control-group">
+				    <label class="control-label"><%= f.label :email %></label>
+				    <div class="controls">
+				      <%= f.text_field :email, :placeholder => 'Email' %>
+				    </div>
+				  </div>
+
+			    <div class="control-group">
+				    <label class="control-label"><%= f.label :password %></label>
+				    <div class="controls">
+				      <%= f.text_field :password, :placeholder => 'Password' %>
+				    </div>
+				  </div>
+
+			    <div class="control-group">
+				    <label class="control-label"><%= f.label :password_confirmation %></label>
+				    <div class="controls">
+				      <%= f.text_field :password_confirmation, :placeholder => 'Confirm password' %>
+				    </div>
+				  </div>
+
+				  <div class="control-group">
+				    <div class="controls">
+				    	<div class="actions">
+					      <button class = "btn btn-primary">Sign up</button>
+					      <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
 					    </div>
-					  </div>
+				    </div>
+				  </div>
 
-				    <div class="control-group">
-					    <label class="control-label"><%= f.label :last_name %></label>
-					    <div class="controls">
-					      <%= f.text_field :last_name, :placeholder => 'Last Name' %>
-					    </div>
-					  </div>
-
-				    <div class="control-group">
-					    <label class="control-label"><%= f.label :address %></label>
-					    <div class="controls">
-					      <%= f.text_field :address, :placeholder => 'Address' %>
-					    </div>
-					  </div>
-
-				    <div class="control-group">
-					    <label class="control-label"><%= f.label :phone %></label>
-					    <div class="controls">
-					      <%= f.text_field :phone, :placeholder => 'Phone' %>
-					    </div>
-					  </div>
-
-				    <div class="control-group">
-					    <label class="control-label"><%= f.label :email %></label>
-					    <div class="controls">
-					      <%= f.text_field :email, :placeholder => 'Email' %>
-					    </div>
-					  </div>
-
-				    <div class="control-group">
-					    <label class="control-label"><%= f.label :password %></label>
-					    <div class="controls">
-					      <%= f.text_field :password, :placeholder => 'Password' %>
-					    </div>
-					  </div>
-
-				    <div class="control-group">
-					    <label class="control-label"><%= f.label :password_confirmation %></label>
-					    <div class="controls">
-					      <%= f.text_field :password_confirmation, :placeholder => 'Confirm password' %>
-					    </div>
-					  </div>
-
-					  <div class="control-group">
-					    <div class="controls">
-					    	<div class="actions">
-						      <button class = "btn btn-primary">Sign up</button>
-						      <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-						    </div>
-					    </div>
-					  </div>
-
-				  <% end %>
-						  
-			  </div>
-			</div>
-	  </p>
-	</div>
-
-
-	<div class="row">
-		<div class="span9">
+			  <% end %>
+					  
+		  </div>
 		</div>
-		<div class="span3">
-		</div>
-	</div>
-
-<% end %>
+  </p>
+</div>
