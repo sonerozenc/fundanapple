@@ -37,6 +37,8 @@ class ChargesController < ApplicationController
 		  redirect_to charges_path
 		end
 
+		redirect_to project_path @project
+
 	end
 
 end
